@@ -16,7 +16,7 @@ struct RootView: View {
                     Text(errorMessage)
                         .foregroundColor(.white)
                         .padding(10.0)
-                        .background(Color.black)
+                        .background(Color(.systemGray4))
                         .cornerRadius(3.0)
                 }
                 .padding(.bottom, 10)

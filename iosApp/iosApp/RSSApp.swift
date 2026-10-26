@@ -24,7 +24,9 @@ struct RSSApp: App {
   
     var body: some Scene {
         WindowGroup {
-            RootView().environmentObject(store)
+            RootView()
+                .environmentObject(store)
+                .preferredColorScheme(.dark)
         }
     }
 }
@@ -87,4 +89,3 @@ public struct StoreConnector<V: View>: View {
         return content(store.state, store.dispatch)
     }
 }
-

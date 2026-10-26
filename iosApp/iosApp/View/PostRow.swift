@@ -19,7 +19,7 @@ struct PostRow: View {
             Link(destination: url) {
                 content
             }
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
         } else {
             content
         }

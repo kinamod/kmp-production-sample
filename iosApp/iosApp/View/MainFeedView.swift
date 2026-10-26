@@ -54,7 +54,7 @@ struct MainFeedView: ConnectedView {
     @SwiftUI.State private var showSelectFeed = false
     
     init() {
-        UITableView.appearance().backgroundColor = .white
+        UITableView.appearance().backgroundColor = .systemBackground
     }
     
     func body(props: Props) -> some View {
@@ -118,7 +118,7 @@ struct MainFeedView: ConnectedView {
                 }
             }
         }
-        .background(Color("FeedPicker"))
+        .background(Color(.secondarySystemBackground))
         .pickerStyle(.wheel)
     }
     
