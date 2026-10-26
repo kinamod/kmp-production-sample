@@ -28,6 +28,8 @@ fun MainFeed(
     store: FeedStore,
     onPostClick: (Item) -> Unit,
     onEditClick: () -> Unit,
+    onSavedClick: () -> Unit,
+    onInsuranceClick: () -> Unit,
 ) {
     val state = store.observeState().collectAsState()
     val posts = remember(state.value.feeds, state.value.selectedFeed) {
@@ -49,7 +51,9 @@ fun MainFeed(
                 coroutineScope.launch { listState.scrollToItem(0) }
                 store.dispatch(FeedAction.SelectFeed(feed))
             },
-            onEditClick = onEditClick
+            onEditClick = onEditClick,
+            onSavedClick = onSavedClick,
+            onInsuranceClick = onInsuranceClick
         )
         Spacer(
             Modifier
@@ -63,6 +67,8 @@ private sealed class Icons {
     object All : Icons()
     class FeedIcon(val feed: RssFeed) : Icons()
     object Edit : Icons()
+    object Saved : Icons()
+    object Insurance : Icons()
 }
 
 @Composable
@@ -70,11 +76,15 @@ fun MainFeedBottomBar(
     feeds: List<RssFeed>,
     selectedFeed: RssFeed?,
     onFeedClick: (RssFeed?) -> Unit,
-    onEditClick: () -> Unit
+    onEditClick: () -> Unit,
+    onSavedClick: () -> Unit,
+    onInsuranceClick: () -> Unit
 ) {
     val items = buildList {
         add(Icons.All)
         addAll(feeds.map { Icons.FeedIcon(it) })
+        add(Icons.Saved)
+        add(Icons.Insurance)
         add(Icons.Edit)
     }
     LazyRow(
@@ -94,6 +104,10 @@ fun MainFeedBottomBar(
                     isSelected = selectedFeed == item.feed,
                     onClick = { onFeedClick(item.feed) }
                 )
+
+                is Icons.Saved -> SavedIcon(onClick = onSavedClick)
+
+                is Icons.Insurance -> InsuranceIcon(onClick = onInsuranceClick)
 
                 is Icons.Edit -> EditIcon(onClick = onEditClick)
             }

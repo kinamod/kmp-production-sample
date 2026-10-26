@@ -71,6 +71,44 @@ private fun RssFeed.shortName(): String =
     channel?.title?.replace(" ", "")?.take(2)?.uppercase() ?: ""
 
 @Composable
+fun SavedIcon(
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .clickable(onClick = onClick)
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            color = MaterialTheme.colorScheme.onSecondary,
+            text = "\u2605"
+        )
+    }
+}
+
+@Composable
+fun InsuranceIcon(
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .clickable(onClick = onClick)
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            color = MaterialTheme.colorScheme.onSecondary,
+            text = "IC"
+        )
+    }
+}
+
+@Composable
 fun EditIcon(
     onClick: () -> Unit
 ) {

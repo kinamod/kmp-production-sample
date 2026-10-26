@@ -4,15 +4,32 @@ import com.github.jetbrains.rssreader.Settings
 import com.github.jetbrains.rssreader.datasource.network.FeedLoader
 import com.github.jetbrains.rssreader.datasource.storage.FeedStorage
 import com.github.jetbrains.rssreader.domain.RssFeed
+import com.github.jetbrains.rssreader.domain.SavedPost
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class RssReader(
     private val feedLoader: FeedLoader,
     private val feedStorage: FeedStorage,
     private val settings: Settings = Settings(setOf("https://blog.jetbrains.com/kotlin/feed/"))
 ) {
+
+    private val _savedPosts = MutableStateFlow(feedStorage.getSavedPosts())
+    val savedPosts: StateFlow<List<SavedPost>> = _savedPosts
+
+    fun toggleSaved(post: SavedPost) {
+        val current = _savedPosts.value
+        val updated = if (current.any { it.link == post.link }) {
+            current.filterNot { it.link == post.link }
+        } else {
+            listOf(post) + current
+        }
+        feedStorage.setSavedPosts(updated)
+        _savedPosts.value = updated
+    }
 
     @Throws(Exception::class)
     suspend fun getAllFeeds(

@@ -54,7 +54,7 @@ struct MainFeedView: ConnectedView {
     @SwiftUI.State private var showSelectFeed = false
     
     init() {
-        UITableView.appearance().backgroundColor = .white
+        UITableView.appearance().backgroundColor = .systemBackground
     }
     
     func body(props: Props) -> some View {
@@ -69,6 +69,15 @@ struct MainFeedView: ConnectedView {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 navigationTitle(props: props)
+            }
+            ToolbarItemGroup(placement: .bottomBar) {
+                NavigationLink(destination: SavedPostsView()) {
+                    Label("Saved", systemImage: "bookmark")
+                }
+                Spacer()
+                NavigationLink(destination: InsuranceSignUpView()) {
+                    Label("Sign Up", systemImage: "doc.text")
+                }
             }
         }
         .onAppear {
@@ -118,7 +127,7 @@ struct MainFeedView: ConnectedView {
                 }
             }
         }
-        .background(Color("FeedPicker"))
+        .background(Color(.secondarySystemBackground))
         .pickerStyle(.wheel)
     }
     

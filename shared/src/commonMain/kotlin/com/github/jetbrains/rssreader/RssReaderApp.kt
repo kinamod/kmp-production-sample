@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -26,8 +28,13 @@ import androidx.navigation.compose.rememberNavController
 import com.github.jetbrains.rssreader.app.FeedSideEffect
 import com.github.jetbrains.rssreader.app.FeedStore
 import com.github.jetbrains.rssreader.ui.AppTheme
+import com.github.jetbrains.rssreader.domain.SavedPost
 import com.github.jetbrains.rssreader.ui.FeedListScreen
+import com.github.jetbrains.rssreader.ui.InsuranceSignUpScreen
 import com.github.jetbrains.rssreader.ui.MainScreen
+import com.github.jetbrains.rssreader.ui.PostBottomBar
+import com.github.jetbrains.rssreader.ui.PostDetailScreen
+import com.github.jetbrains.rssreader.ui.SavedPostsScreen
 import com.github.jetbrains.rssreader.ui.RssFeedAppBar
 import com.github.jetbrains.rssreader.ui.Screen
 import kotlinx.coroutines.flow.filterIsInstance
@@ -44,6 +51,7 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
             backStackEntry?.destination?.route ?: Screen.Main.name
         )
         val snackbarHostState = remember { SnackbarHostState() }
+        var openPost by remember { mutableStateOf<SavedPost?>(null) }
 
         Scaffold(
             modifier = Modifier.fillMaxSize(),
@@ -53,6 +61,11 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
                     canNavigateBack = navController.previousBackStackEntry != null,
                     navigateUp = { navController.navigateUp() }
                 )
+            },
+            bottomBar = {
+                openPost?.let { post ->
+                    if (currentScreen == Screen.Post) PostBottomBar(post)
+                }
             },
             snackbarHost = {
                 SnackbarHost(
@@ -74,6 +87,12 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
                 composable(route = Screen.Main.name) {
                     MainScreen(
                         onEditClick = { navController.navigate(Screen.FeedList.name) },
+                        onSavedClick = { navController.navigate(Screen.Saved.name) },
+                        onInsuranceClick = { navController.navigate(Screen.Insurance.name) },
+                        onPostClick = { post ->
+                            openPost = post
+                            navController.navigate(Screen.Post.name)
+                        },
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(16.dp)
@@ -81,6 +100,18 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
                 }
                 composable(route = Screen.FeedList.name) {
                     FeedListScreen()
+                }
+                composable(route = Screen.Post.name) {
+                    openPost?.let { PostDetailScreen(it) }
+                }
+                composable(route = Screen.Insurance.name) {
+                    InsuranceSignUpScreen(onBack = { navController.navigateUp() })
+                }
+                composable(route = Screen.Saved.name) {
+                    SavedPostsScreen(onPostClick = { post ->
+                        openPost = post
+                        navController.navigate(Screen.Post.name)
+                    })
                 }
             }
 

@@ -14,7 +14,8 @@ import RssReader
 struct RSSApp: App {
     let rss: RssReader
     let store: ObservableFeedStore
-    
+    @StateObject private var savedPosts = SavedPostsStore()
+
     init() {
         KoinHelperKt.doInitKoin()
         let helper = KoinHelper()
@@ -24,7 +25,10 @@ struct RSSApp: App {
   
     var body: some Scene {
         WindowGroup {
-            RootView().environmentObject(store)
+            RootView()
+                .environmentObject(store)
+                .environmentObject(savedPosts)
+                .preferredColorScheme(.dark)
         }
     }
 }
@@ -87,4 +91,3 @@ public struct StoreConnector<V: View>: View {
         return content(store.state, store.dispatch)
     }
 }
-

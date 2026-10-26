@@ -15,11 +15,11 @@ struct PostRow: View {
     let post: Item
 
     var body: some View {
-        if let postURL = post.link, let url = URL(string: postURL) {
-            Link(destination: url) {
+        if let postURL = post.link, URL(string: postURL) != nil {
+            NavigationLink(destination: PostDetailView(post: SavedPost(title: (post.title ?? postURL).decodeHtmlEntities(), link: postURL))) {
                 content
             }
-            .foregroundColor(.black)
+            .foregroundColor(.primary)
         } else {
             content
         }

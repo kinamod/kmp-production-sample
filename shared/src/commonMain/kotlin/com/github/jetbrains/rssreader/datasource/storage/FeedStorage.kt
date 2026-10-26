@@ -1,6 +1,7 @@
 package com.github.jetbrains.rssreader.datasource.storage
 
 import com.github.jetbrains.rssreader.domain.RssFeed
+import com.github.jetbrains.rssreader.domain.SavedPost
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.set
 import kotlinx.serialization.builtins.ListSerializer
@@ -12,6 +13,7 @@ class FeedStorage(
 ) {
     private companion object {
         private const val KEY_FEED_CACHE = "key_feed_cache"
+        private const val KEY_SAVED_POSTS = "key_saved_posts"
     }
 
     private var diskCache: Map<String, RssFeed>
@@ -42,4 +44,14 @@ class FeedStorage(
     }
 
     suspend fun getAllFeeds(): List<RssFeed> = memCache.values.toList()
+
+    fun getSavedPosts(): List<SavedPost> =
+        settings.getStringOrNull(KEY_SAVED_POSTS)?.let { str ->
+            json.decodeFromString(ListSerializer(SavedPost.serializer()), str)
+        } ?: emptyList()
+
+    fun setSavedPosts(posts: List<SavedPost>) {
+        settings[KEY_SAVED_POSTS] =
+            json.encodeToString(ListSerializer(SavedPost.serializer()), posts)
+    }
 }
