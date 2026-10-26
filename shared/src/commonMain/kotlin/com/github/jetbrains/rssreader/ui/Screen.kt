@@ -46,6 +46,7 @@ import com.github.jetbrains.rssreader.core.RssReader
 import com.github.jetbrains.rssreader.domain.SavedPost
 import com.github.jetbrains.rssreader.domain.toSavedPost
 import com.github.jetbrains.rssreader.feed_list
+import com.github.jetbrains.rssreader.insurance_signup
 import com.github.jetbrains.rssreader.no_saved_posts
 import com.github.jetbrains.rssreader.open_in_browser
 import com.github.jetbrains.rssreader.post
@@ -61,7 +62,8 @@ enum class Screen(val title: StringResource) {
     Main(Res.string.app_name),
     FeedList(Res.string.feed_list),
     Post(Res.string.post),
-    Saved(Res.string.saved_posts);
+    Saved(Res.string.saved_posts),
+    Insurance(Res.string.insurance_signup);
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -96,6 +98,7 @@ fun RssFeedAppBar(
 fun MainScreen(
     onEditClick: () -> Unit,
     onSavedClick: () -> Unit,
+    onInsuranceClick: () -> Unit,
     onPostClick: (SavedPost) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -113,7 +116,8 @@ fun MainScreen(
                 store = store,
                 onPostClick = { post -> onPostClick(post.toSavedPost()) },
                 onEditClick = onEditClick,
-                onSavedClick = onSavedClick
+                onSavedClick = onSavedClick,
+                onInsuranceClick = onInsuranceClick
             )
         })
 }

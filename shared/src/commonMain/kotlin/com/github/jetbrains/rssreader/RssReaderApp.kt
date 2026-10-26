@@ -30,6 +30,7 @@ import com.github.jetbrains.rssreader.app.FeedStore
 import com.github.jetbrains.rssreader.ui.AppTheme
 import com.github.jetbrains.rssreader.domain.SavedPost
 import com.github.jetbrains.rssreader.ui.FeedListScreen
+import com.github.jetbrains.rssreader.ui.InsuranceSignUpScreen
 import com.github.jetbrains.rssreader.ui.MainScreen
 import com.github.jetbrains.rssreader.ui.PostBottomBar
 import com.github.jetbrains.rssreader.ui.PostDetailScreen
@@ -87,6 +88,7 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
                     MainScreen(
                         onEditClick = { navController.navigate(Screen.FeedList.name) },
                         onSavedClick = { navController.navigate(Screen.Saved.name) },
+                        onInsuranceClick = { navController.navigate(Screen.Insurance.name) },
                         onPostClick = { post ->
                             openPost = post
                             navController.navigate(Screen.Post.name)
@@ -101,6 +103,9 @@ fun RssReaderApp(navController: NavHostController = rememberNavController()) {
                 }
                 composable(route = Screen.Post.name) {
                     openPost?.let { PostDetailScreen(it) }
+                }
+                composable(route = Screen.Insurance.name) {
+                    InsuranceSignUpScreen(onBack = { navController.navigateUp() })
                 }
                 composable(route = Screen.Saved.name) {
                     SavedPostsScreen(onPostClick = { post ->

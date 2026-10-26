@@ -90,6 +90,25 @@ fun SavedIcon(
 }
 
 @Composable
+fun InsuranceIcon(
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(48.dp)
+            .clip(CircleShape)
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .clickable(onClick = onClick)
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.Center),
+            color = MaterialTheme.colorScheme.onSecondary,
+            text = "IC"
+        )
+    }
+}
+
+@Composable
 fun EditIcon(
     onClick: () -> Unit
 ) {

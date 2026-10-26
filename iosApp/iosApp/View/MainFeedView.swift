@@ -70,9 +70,13 @@ struct MainFeedView: ConnectedView {
             ToolbarItem(placement: .principal) {
                 navigationTitle(props: props)
             }
-            ToolbarItem(placement: .bottomBar) {
+            ToolbarItemGroup(placement: .bottomBar) {
                 NavigationLink(destination: SavedPostsView()) {
                     Label("Saved", systemImage: "bookmark")
+                }
+                Spacer()
+                NavigationLink(destination: InsuranceSignUpView()) {
+                    Label("Sign Up", systemImage: "doc.text")
                 }
             }
         }
