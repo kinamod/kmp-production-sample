@@ -70,6 +70,11 @@ struct MainFeedView: ConnectedView {
             ToolbarItem(placement: .principal) {
                 navigationTitle(props: props)
             }
+            ToolbarItem(placement: .bottomBar) {
+                NavigationLink(destination: SavedPostsView()) {
+                    Label("Saved", systemImage: "bookmark")
+                }
+            }
         }
         .onAppear {
             props.onReloadFeed(true)

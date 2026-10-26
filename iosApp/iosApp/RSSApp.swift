@@ -14,7 +14,8 @@ import RssReader
 struct RSSApp: App {
     let rss: RssReader
     let store: ObservableFeedStore
-    
+    @StateObject private var savedPosts = SavedPostsStore()
+
     init() {
         KoinHelperKt.doInitKoin()
         let helper = KoinHelper()
@@ -26,6 +27,7 @@ struct RSSApp: App {
         WindowGroup {
             RootView()
                 .environmentObject(store)
+                .environmentObject(savedPosts)
                 .preferredColorScheme(.dark)
         }
     }
