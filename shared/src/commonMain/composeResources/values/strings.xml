@@ -7,4 +7,10 @@
     <string name="remove">Remove</string>
     <string name="all">All</string>
     <string name="back_button">Back</string>
+    <string name="post">Post</string>
+    <string name="saved_posts">Saved</string>
+    <string name="save">Save</string>
+    <string name="saved">Saved</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="no_saved_posts">No saved posts yet</string>
 </resources>
