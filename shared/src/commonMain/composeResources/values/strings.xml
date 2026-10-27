@@ -7,4 +7,7 @@
     <string name="remove">Remove</string>
     <string name="all">All</string>
     <string name="back_button">Back</string>
+    <string name="tab_feed">Feed</string>
+    <string name="tab_sign_up">Sign Up</string>
+    <string name="sign_up_title">Sign Up for InsureCo</string>
 </resources>

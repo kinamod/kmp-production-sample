@@ -21,13 +21,14 @@ import com.github.jetbrains.rssreader.app.FeedStore
 import com.github.jetbrains.rssreader.app_name
 import com.github.jetbrains.rssreader.back_button
 import com.github.jetbrains.rssreader.feed_list
+import com.github.jetbrains.rssreader.sign_up_title
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import androidx.compose.ui.platform.LocalUriHandler
 
 enum class Screen(val title: StringResource) {
-    Main(Res.string.app_name), FeedList(Res.string.feed_list);
+    Main(Res.string.app_name), FeedList(Res.string.feed_list), SignUp(Res.string.tab_sign_up);
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

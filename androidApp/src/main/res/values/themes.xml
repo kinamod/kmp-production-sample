@@ -8,7 +8,7 @@
             @color/ic_launcher_background
         </item>
         <item name="postSplashScreenTheme">
-            @android:style/Theme.Material.Light.NoActionBar
+            @android:style/Theme.Material.NoActionBar
         </item>
     </style>
 </resources>

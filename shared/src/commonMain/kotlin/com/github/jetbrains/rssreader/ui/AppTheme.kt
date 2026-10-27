@@ -1,6 +1,5 @@
 package com.github.jetbrains.rssreader.ui
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
@@ -25,10 +24,11 @@ private val DarkColors = darkColorScheme(
 
 @Composable
 fun AppTheme(
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
     MaterialTheme(
-        colorScheme = if (isSystemInDarkTheme()) DarkColors else LightColors,
+        colorScheme = if (darkTheme) DarkColors else LightColors,
         content = {
             Surface(content = content)
         }

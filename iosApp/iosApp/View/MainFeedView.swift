@@ -53,10 +53,6 @@ struct MainFeedView: ConnectedView {
     
     @SwiftUI.State private var showSelectFeed = false
     
-    init() {
-        UITableView.appearance().backgroundColor = .white
-    }
-    
     func body(props: Props) -> some View {
         VStack {
             if showSelectFeed {
@@ -118,7 +114,7 @@ struct MainFeedView: ConnectedView {
                 }
             }
         }
-        .background(Color("FeedPicker"))
+        .background(Color(uiColor: .secondarySystemBackground))
         .pickerStyle(.wheel)
     }
     
