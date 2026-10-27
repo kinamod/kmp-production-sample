@@ -21,7 +21,7 @@ import com.github.jetbrains.rssreader.app.FeedStore
 import com.github.jetbrains.rssreader.app_name
 import com.github.jetbrains.rssreader.back_button
 import com.github.jetbrains.rssreader.feed_list
-import com.github.jetbrains.rssreader.sign_up_title
+import com.github.jetbrains.rssreader.tab_sign_up
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
